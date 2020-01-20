@@ -10,11 +10,11 @@
     </el-menu-item>
     <el-menu-item index="1">
       <i class="el-icon-menu"></i>
-      <span slot="title">文学</span>
+      <span slot="title">科幻</span>
     </el-menu-item>
     <el-menu-item index="2">
       <i class="el-icon-menu"></i>
-      <span slot="title">流行</span>
+      <span slot="title">悬疑</span>
     </el-menu-item>
     <el-menu-item index="3">
       <i class="el-icon-menu"></i>
@@ -37,7 +37,18 @@
 
 <script>
 export default {
-  name: 'SideMenu'
+  name: 'SideMenu',
+  data () {
+    return {
+      cid: ''
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      this.cid = key
+      this.$emit('indexSelect')
+    }
+  }
 }
 </script>
 

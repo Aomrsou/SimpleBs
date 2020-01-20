@@ -46,6 +46,8 @@ export default {
             _this.$store.commit('login', _this.loginForm)
             var path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+          } else if (successResponse.data.code === 404) {
+            alert('账号或密码不正确')
           }
         })
         .catch(failResponse => {
