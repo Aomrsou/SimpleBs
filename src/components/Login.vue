@@ -47,7 +47,10 @@ export default {
             var path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           } else if (successResponse.data.code === 404) {
-            alert('账号或密码不正确')
+            this.$message({
+              type: 'info',
+              message: '账号或密码不正确'
+            })
           }
         })
         .catch(failResponse => {
