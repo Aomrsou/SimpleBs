@@ -10,9 +10,9 @@
     <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
       {{ item.navItem }}
     </el-menu-item>
-    <a href="#nowhere" style="color: #222;float: right;padding: 20px;">更多功能</a>
+    <a href="#nowhere" style="color: #222;float: right;padding: 20px;">更多</a>
     <i class="el-icon-menu" style="float:right;font-size: 45px;color: #222;padding-top: 8px"></i>
-    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">White Jotter - Your Mind Palace</span>
+    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">Something Just Like This...🎵</span>
   </el-menu>
 </template>
 

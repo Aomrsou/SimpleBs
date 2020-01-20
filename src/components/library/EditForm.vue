@@ -58,7 +58,7 @@ export default {
         cover: '',
         abs: '',
         category: {
-          id: '1',
+          id: '',
           name: ''
         }
       },
