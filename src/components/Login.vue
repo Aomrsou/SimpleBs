@@ -33,28 +33,29 @@ export default {
   },
   methods: {
     login () {
-      var _this = this
-      console.log(this.$store.state)
-      this.$axios
-        .post('/login', {
-          username: this.loginForm.username,
-          password: this.loginForm.password
-        })
-        .then(successResponse => {
-          if (successResponse.data.code === 200) {
-            // var data = this.loginForm
-            _this.$store.commit('login', _this.loginForm)
-            var path = this.$route.query.redirect
-            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
-          } else if (successResponse.data.code === 404) {
-            this.$message({
-              type: 'info',
-              message: '账号或密码不正确'
-            })
-          }
-        })
-        .catch(failResponse => {
-        })
+      this.$router.replace('/index')
+      // var _this = this
+      // console.log(this.$store.state)
+      // this.$axios
+      //   .post('/login', {
+      //     username: this.loginForm.username,
+      //     password: this.loginForm.password
+      //   })
+      //   .then(successResponse => {
+      //     if (successResponse.data.code === 200) {
+      //       // var data = this.loginForm
+      //       _this.$store.commit('login', _this.loginForm)
+      //       var path = this.$route.query.redirect
+      //       this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+      //     } else if (successResponse.data.code === 404) {
+      //       this.$message({
+      //         type: 'info',
+      //         message: '账号或密码不正确'
+      //       })
+      //     }
+      //   })
+      //   .catch(failResponse => {
+      //   })
     }
   }
 }

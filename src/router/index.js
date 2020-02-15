@@ -5,6 +5,8 @@ import AppIndex from '@/components/home/AppIndex'
 import Login from '@/components/Login'
 import Home from '../components/Home'
 import LibraryIndex from '../components/library/LibraryIndex'
+import ManagerIndex from '../components/manager/ManagerIndex'
+import ManagerStudent from '../components/manager/student/ManagerStudent'
 
 Vue.use(Router)
 
@@ -28,7 +30,7 @@ export default new Router({
           name: 'AppIndex',
           component: AppIndex,
           meta: {
-            requireAuth: true
+            // requireAuth: true
           }
         },
         {
@@ -36,8 +38,23 @@ export default new Router({
           name: 'Library',
           component: LibraryIndex,
           meta: {
-            requireAuth: true
+            // requireAuth: true
           }
+        },
+        {
+          path: '/admin',
+          name: 'Admin',
+          component: ManagerIndex,
+          meta: {
+            // requireAuth: true
+          },
+          children: [
+            {
+              path: 'student',
+              name: 'Student',
+              component: ManagerStudent
+            }
+          ]
         }
       ]
     },

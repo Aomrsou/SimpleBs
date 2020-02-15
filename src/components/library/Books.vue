@@ -60,6 +60,7 @@ export default {
       var _this = this
       this.$axios.get('/books').then(resp => {
         if (resp && resp.status === 200) {
+          console.log(resp.data)
           _this.books = resp.data
         }
       })

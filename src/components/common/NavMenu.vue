@@ -30,14 +30,13 @@ export default {
         {name: '/index', navItem: '首页'},
         {name: '/jotter', navItem: '笔记本'},
         {name: '/library', navItem: '图书馆'},
-        {name: '/admin', navItem: '个人中心'}
+        {name: '/admin/student', navItem: '后台管理'}
       ],
       username: window.localStorage.username
     }
   },
   methods: {
     loginOut () {
-        console.log('giao')
       window.localStorage.clear()
       this.$router.replace('/index')
     }
