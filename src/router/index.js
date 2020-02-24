@@ -7,6 +7,8 @@ import Home from '../components/Home'
 import LibraryIndex from '../components/library/LibraryIndex'
 import ManagerIndex from '../components/manager/ManagerIndex'
 import ManagerStudent from '../components/manager/student/ManagerStudent'
+import ManagerDormitory from '../components/manager/dormitory/ManagerDormitory'
+import ManagerBuild from '../components/manager/build/ManagerBuild'
 
 Vue.use(Router)
 
@@ -53,6 +55,16 @@ export default new Router({
               path: 'student',
               name: 'Student',
               component: ManagerStudent
+            },
+            {
+              path: 'dormitory',
+              name: 'Dormitory',
+              component: ManagerDormitory
+            },
+            {
+              path: 'build',
+              name: 'Build',
+              component: ManagerBuild
             }
           ]
         }

@@ -27,7 +27,7 @@
           <el-button type="primary" @click="onSubmit" style="width: 160px">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onInsert">新增</el-button>
+          <student-edit-form></student-edit-form>
         </el-form-item>
       </el-form>
     </el-header>
@@ -38,15 +38,18 @@
         <el-table-column prop="sex" label="性别"></el-table-column>
         <el-table-column prop="cls" label="班级" width="180"></el-table-column>
         <el-table-column prop="dor" label="宿舍" width="180"></el-table-column>
-        <el-table-column prop="flag" label="操作"></el-table-column>
+        <el-table-column prop="id" label="操作"></el-table-column>
       </el-table>
     </el-main>
   </el-container>
 </template>
 
 <script>
+import StudentEditForm from './StudentEditForm'
+
 export default {
   name: 'ManagerStudent',
+  components: {StudentEditForm},
   data () {
     return {
       students: [],
@@ -82,7 +85,7 @@ export default {
     },
     loadStudents () {
       var _this = this
-      this.$axios.get('/stu/list').then(resp => {
+      this.$axios.get('/stu/getlist').then(resp => {
         if (resp && resp.status === 200) {
           _this.students = resp.data.data
         }

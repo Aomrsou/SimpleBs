@@ -9,7 +9,8 @@
           <el-menu-item index="1-2">班级信息管理</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="宿舍管理">
-          <el-menu-item index="1-3">宿舍信息管理</el-menu-item>
+          <el-menu-item :index="'/admin/build'">宿舍楼管理</el-menu-item>
+          <el-menu-item :index="'/admin/dormitory'">宿舍信息管理</el-menu-item>
         </el-menu-item-group>
         <el-submenu index="1-4">
           <template slot="title">卫生管理</template>
