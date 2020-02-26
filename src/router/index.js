@@ -9,6 +9,7 @@ import ManagerIndex from '../components/manager/ManagerIndex'
 import ManagerStudent from '../components/manager/student/ManagerStudent'
 import ManagerDormitory from '../components/manager/dormitory/ManagerDormitory'
 import ManagerBuild from '../components/manager/build/ManagerBuild'
+import ManagerClass from '../components/manager/class/ManagerClass'
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ export default new Router({
               path: 'build',
               name: 'Build',
               component: ManagerBuild
+            },
+            {
+              path: 'class',
+              name: 'Class',
+              component: ManagerClass
             }
           ]
         }

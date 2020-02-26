@@ -13,6 +13,8 @@
           <el-select v-model="searchBuildNo" placeholder="请选择宿舍楼号">
             <el-option label="1" value="1"></el-option>
             <el-option label="2" value="2"></el-option>
+            <el-option label="3" value="3"></el-option>
+            <el-option label="4" value="4"></el-option>
             <el-option label="-未选择-" value=""></el-option>
           </el-select>
         </el-form-item>

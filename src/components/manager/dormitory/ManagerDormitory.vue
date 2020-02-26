@@ -43,7 +43,7 @@
           <template slot-scope="scope">
             <el-button size="mini" @click="editBuild(scope.row)">编辑
             </el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row.did)">删除
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row.did, scope.row.nownum)">删除
             </el-button>
           </template>
         </el-table-column>
@@ -95,7 +95,6 @@ export default {
       this.$axios.post('/dor/list', {
         bid, floor, dornum
       }).then(resp => {
-        console.log(resp)
         if (resp && resp.status === 200) {
           _this.dormitorys = resp.data.data
         }
@@ -115,7 +114,31 @@ export default {
         bid: item.bid
       }
     },
-    handleDelete (index) {
+    handleDelete (index, nownum) {
+      if (nownum === 0) {
+        this.$confirm('此操作将永久删除该宿舍, 是否继续?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.post('/dor/delete', {
+            did: index
+          }).then(resp => {
+            if (resp && resp.status === 200) {
+              this.$message({
+                type: 'success',
+                message: '删除成功！'
+              })
+              this.loadDormitorys()
+            }
+          })
+        })
+      } else {
+        this.$message({
+          type: 'info',
+          message: '尚有人居住，无法删除！'
+        })
+      }
       console.log('1+1=' + index)
     },
     buildSelect () {
