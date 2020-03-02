@@ -11,9 +11,17 @@
         <el-input type="password" v-model="loginForm.password"
                   auto-complete="off" placeholder="密码"></el-input>
       </el-form-item>
-      <el-form-item style="width: 100%">
-        <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">登录</el-button>
-      </el-form-item>
+      <el-form :inline="true" class="demo-form-inline">
+        <el-form-item>
+          <el-button type="primary" style="width: 230px;background: #505458;border: none" v-on:click="login">登录</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-checkbox-group v-model="isAdmin">
+            <el-checkbox label="管理员登录" name="type">
+          </el-checkbox>
+        </el-checkbox-group>
+        </el-form-item>
+      </el-form>
     </el-form>
   </body>
 </template>
@@ -25,37 +33,45 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: '张子扬',
+        password: '123456'
       },
-      responseResult: []
+      responseResult: [],
+      isAdmin: false
     }
   },
   methods: {
     login () {
+      let path = '/loginStudent'
+      if (this.isAdmin) {
+        path = '/login'
+      }
+      console.log(path)
       this.$router.replace('/index')
-      // var _this = this
-      // console.log(this.$store.state)
-      // this.$axios
-      //   .post('/login', {
-      //     username: this.loginForm.username,
-      //     password: this.loginForm.password
-      //   })
-      //   .then(successResponse => {
-      //     if (successResponse.data.code === 200) {
-      //       // var data = this.loginForm
-      //       _this.$store.commit('login', _this.loginForm)
-      //       var path = this.$route.query.redirect
-      //       this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
-      //     } else if (successResponse.data.code === 404) {
-      //       this.$message({
-      //         type: 'info',
-      //         message: '账号或密码不正确'
-      //       })
-      //     }
-      //   })
-      //   .catch(failResponse => {
-      //   })
+      var _this = this
+      console.log(this.$store.state)
+      this.$axios
+        .post(path, {
+          name: this.loginForm.username,
+          password: this.loginForm.password
+        })
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            // var data = this.loginForm
+            _this.$store.commit('login', _this.loginForm)
+            window.localStorage.setItem('myInfo', JSON.stringify(successResponse.data.data[0]))
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+            // location.reload()
+          } else if (successResponse.data.code === 404) {
+            this.$message({
+              type: 'info',
+              message: '账号或密码不正确'
+            })
+          }
+        })
+        .catch(failResponse => {
+        })
     }
   }
 }

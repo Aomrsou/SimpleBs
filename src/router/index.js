@@ -10,6 +10,7 @@ import ManagerStudent from '../components/manager/student/ManagerStudent'
 import ManagerDormitory from '../components/manager/dormitory/ManagerDormitory'
 import ManagerBuild from '../components/manager/build/ManagerBuild'
 import ManagerClass from '../components/manager/class/ManagerClass'
+import ManagerHygiene from '../components/manager/hygiene/ManagerHygiene'
 
 Vue.use(Router)
 
@@ -33,7 +34,7 @@ export default new Router({
           name: 'AppIndex',
           component: AppIndex,
           meta: {
-            // requireAuth: true
+            requireAuth: true
           }
         },
         {
@@ -41,7 +42,7 @@ export default new Router({
           name: 'Library',
           component: LibraryIndex,
           meta: {
-            // requireAuth: true
+            requireAuth: true
           }
         },
         {
@@ -49,28 +50,33 @@ export default new Router({
           name: 'Admin',
           component: ManagerIndex,
           meta: {
-            // requireAuth: true
+            requireAuth: true
           },
           children: [
             {
               path: 'student',
-              name: 'Student',
+              name: '/admin/student',
               component: ManagerStudent
             },
             {
               path: 'dormitory',
-              name: 'Dormitory',
+              name: '/admin/dormitory',
               component: ManagerDormitory
             },
             {
               path: 'build',
-              name: 'Build',
+              name: '/admin/build',
               component: ManagerBuild
             },
             {
               path: 'class',
-              name: 'Class',
+              name: '/admin/class',
               component: ManagerClass
+            },
+            {
+              path: 'hygiene',
+              name: '/admin/hygiene',
+              component: ManagerHygiene
             }
           ]
         }

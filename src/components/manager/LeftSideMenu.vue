@@ -1,6 +1,6 @@
 <template>
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :default-openeds="['1']" router>
+    <el-menu :default-openeds="['1']" :default-active="active" router>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>学生 & 宿舍管理</template>
         <el-menu-item-group>
@@ -14,7 +14,7 @@
         </el-menu-item-group>
         <el-submenu index="1-4">
           <template slot="title">卫生管理</template>
-          <el-menu-item index="1-4-1">卫生信息展示</el-menu-item>
+          <el-menu-item :index="'/admin/hygiene'">卫生信息展示</el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="2">
@@ -40,7 +40,15 @@
 
 <script>
 export default {
-  name: 'LeftSideMenu'
+  name: 'LeftSideMenu',
+  data () {
+    return {
+      active: ''
+    }
+  },
+  mounted: function () {
+    this.active = this.$route.name
+  }
 }
 </script>
 
