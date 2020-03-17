@@ -21,7 +21,8 @@
       :visible.sync="drawer"
       :with-header="false"
       style="padding-top: 60px; padding-bottom: 300px">
-      <span><i class="el-icon-caret-right">用户 :  </i>{{myInfo.name}}</span><br>
+      <span><i class="el-icon-caret-right">姓名 :  </i>{{myInfo.name}}</span><br>
+      <span><i class="el-icon-caret-right">学号 :  </i>{{myInfo.num}}</span><br>
       <span><i class="el-icon-caret-right">性别 :  </i>{{myInfo.sex}}</span><br>
       <span><i class="el-icon-caret-right">所在宿舍楼 :  </i>{{myInfo.buildName}}</span><br>
       <span><i class="el-icon-caret-right">所在宿舍 :  </i>{{myInfo.dor}}</span><br>
@@ -38,11 +39,12 @@ export default {
     return {
       navList: [
         {name: '/index', navItem: '首页'},
-        {name: '/jotter', navItem: '笔记本'},
+        {name: '/fix', navItem: '反馈报修'},
+        {name: '/los', navItem: '失物招领'},
         {name: '/library', navItem: '图书馆'},
         {name: '/admin/student', navItem: '后台管理'}
       ],
-      username: '',
+      username: '系统管理员',
       active: 'index',
       drawer: false,
       myInfo: []

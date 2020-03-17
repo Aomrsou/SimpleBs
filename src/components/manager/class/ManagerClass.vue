@@ -44,8 +44,8 @@
           <template slot-scope="scope">
             <el-button size="mini" @click="editClass(scope.row)">保存
             </el-button>
-            <el-button size="mini" disabled="true" type="danger" @click="handleDelete(scope.row.id)">删不删
-            </el-button>
+<!--            <el-button size="mini" disabled="true" type="danger" @click="handleDelete(scope.row.id)">删不删-->
+<!--            </el-button>-->
           </template>
         </el-table-column>
       </el-table>

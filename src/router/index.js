@@ -11,6 +11,10 @@ import ManagerDormitory from '../components/manager/dormitory/ManagerDormitory'
 import ManagerBuild from '../components/manager/build/ManagerBuild'
 import ManagerClass from '../components/manager/class/ManagerClass'
 import ManagerHygiene from '../components/manager/hygiene/ManagerHygiene'
+import ManagerLos from '../components/los/ManagerLos'
+import ManagerFix from '../components/fix/ManagerFix'
+import ManagerLosAdmin from '../components/manager/manageLos/ManagerLosAdmin'
+import ManagerFixAdmin from '../components/manager/manageFix/ManagerFixAdmin'
 
 Vue.use(Router)
 
@@ -33,6 +37,22 @@ export default new Router({
           path: '/index',
           name: 'AppIndex',
           component: AppIndex,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/los',
+          name: 'Los',
+          component: ManagerLos,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/fix',
+          name: 'Fix',
+          component: ManagerFix,
           meta: {
             requireAuth: true
           }
@@ -77,6 +97,16 @@ export default new Router({
               path: 'hygiene',
               name: '/admin/hygiene',
               component: ManagerHygiene
+            },
+            {
+              path: 'fix',
+              name: '/admin/fix',
+              component: ManagerFixAdmin
+            },
+            {
+              path: 'los',
+              name: '/admin/los',
+              component: ManagerLosAdmin
             }
           ]
         }
