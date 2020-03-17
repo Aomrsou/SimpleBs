@@ -33,8 +33,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '张子扬',
-        password: '123456'
+        username: '',
+        password: ''
       },
       responseResult: [],
       isAdmin: false
