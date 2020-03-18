@@ -49,7 +49,7 @@ export default {
       } else {
         this.$message({
           type: 'info',
-          message: '请输入账号密码'
+          message: '账号密码不能为空'
         })
       }
     },
