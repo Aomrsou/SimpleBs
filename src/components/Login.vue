@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item>
-          <el-button type="primary" style="width: 230px;background: #505458;border: none" v-on:click="login">登录</el-button>
+          <el-button type="primary" style="width: 230px;background: #505458;border: none" v-on:click="check">登录</el-button>
         </el-form-item>
         <el-form-item>
           <el-checkbox-group v-model="isAdmin">
@@ -41,6 +41,18 @@ export default {
     }
   },
   methods: {
+    check () {
+      var username = this.loginForm.username
+      var password = this.loginForm.password
+      if (username !== '' && password !== '') {
+        this.login()
+      } else {
+        this.$message({
+          type: 'info',
+          message: '请输入账号密码'
+        })
+      }
+    },
     login () {
       let path = '/loginStudent'
       if (this.isAdmin) {
