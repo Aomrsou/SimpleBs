@@ -58,10 +58,7 @@ export default {
       if (this.isAdmin) {
         path = '/login'
       }
-      console.log(path)
-      this.$router.replace('/index')
       var _this = this
-      console.log(this.$store.state)
       this.$axios
         .post(path, {
           name: this.loginForm.username,
