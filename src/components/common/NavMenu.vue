@@ -39,7 +39,6 @@
         <span><i class="el-icon-caret-right"></i>修改宿舍的卫生/报修/失物招领信息</span><br>
       </div>
     </el-drawer>
-    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">Something Just Like This...🎵</span>
   </el-menu>
 </template>
 
@@ -53,9 +52,10 @@ export default {
         {name: '/fix', navItem: '反馈报修'},
         {name: '/los', navItem: '失物招领'},
         {name: '/library', navItem: '图书馆'},
-        {name: '/admin/student', navItem: '后台管理'}
+        {name: '/admin/student', navItem: '后台管理'},
+        {name: '/viewadmin/build', navItem: '可视化后台'}
       ],
-      username: '系统管理员',
+      username: '',
       active: 'index',
       drawer: false,
       myInfo: []
@@ -67,6 +67,7 @@ export default {
     const str = JSON.parse(usr)
     this.username = str.username
     if (str.username !== 'admin') {
+      this.navList.pop()
       this.navList.pop()
     }
     var info = window.localStorage.getItem('myInfo')

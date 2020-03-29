@@ -15,6 +15,14 @@ import ManagerLos from '../components/los/ManagerLos'
 import ManagerFix from '../components/fix/ManagerFix'
 import ManagerLosAdmin from '../components/manager/manageLos/ManagerLosAdmin'
 import ManagerFixAdmin from '../components/manager/manageFix/ManagerFixAdmin'
+import ViewManagerIndex from '../components/viewmanager/ViewManagerIndex'
+import ViewManagerBuild from '../components/viewmanager/build/ViewManagerBuild'
+import ViewManagerClass from '../components/viewmanager/class/ViewManagerClass'
+import ViewManagerDormitory from '../components/viewmanager/dormitory/ViewManagerDormitory'
+import ViewManagerFixAdmin from '../components/viewmanager/manageFix/ViewManagerFixAdmin'
+import ViewManagerHygiene from '../components/viewmanager/hygiene/ViewManagerHygiene'
+import ViewManagerLosAdmin from '../components/viewmanager/manageLos/ViewManagerLosAdmin'
+import ViewManagerStudent from '../components/viewmanager/student/ViewManagerStudent'
 
 Vue.use(Router)
 
@@ -107,6 +115,51 @@ export default new Router({
               path: 'los',
               name: '/admin/los',
               component: ManagerLosAdmin
+            }
+          ]
+        },
+        {
+          path: '/viewadmin',
+          name: 'Admin',
+          component: ViewManagerIndex,
+          meta: {
+            requireAuth: true
+          },
+          children: [
+            {
+              path: 'student',
+              name: '/viewadmin/student',
+              component: ViewManagerStudent
+            },
+            {
+              path: 'dormitory',
+              name: '/viewadmin/dormitory',
+              component: ViewManagerDormitory
+            },
+            {
+              path: 'build',
+              name: '/viewadmin/build',
+              component: ViewManagerBuild
+            },
+            {
+              path: 'class',
+              name: '/viewadmin/class',
+              component: ViewManagerClass
+            },
+            {
+              path: 'hygiene',
+              name: '/viewadmin/hygiene',
+              component: ViewManagerHygiene
+            },
+            {
+              path: 'fix',
+              name: '/viewadmin/fix',
+              component: ViewManagerFixAdmin
+            },
+            {
+              path: 'los',
+              name: '/viewadmin/los',
+              component: ViewManagerLosAdmin
             }
           ]
         }
