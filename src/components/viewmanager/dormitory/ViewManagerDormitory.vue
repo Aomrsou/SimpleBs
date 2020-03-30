@@ -96,7 +96,7 @@ export default {
           _this.dormitorys = resp.data.data
           for (let i = 0; i < _this.dormitorys.length; i++) {
             var temp = _this.dormitorys[i].nownum
-            _this.dormitorys[i].heal = 'http://localhost:8888/bs/img/' + temp + '.png'
+            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
           }
         }
       })
@@ -113,7 +113,7 @@ export default {
           _this.dormitorys = resp.data.data
           for (let i = 0; i < _this.dormitorys.length; i++) {
             var temp = _this.dormitorys[i].nownum
-            _this.dormitorys[i].heal = 'http://localhost:8888/bs/img/' + temp + '.png'
+            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
           }
         }
       })

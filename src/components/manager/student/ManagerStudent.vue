@@ -100,10 +100,10 @@ export default {
         .post('/stu/list', {
           num, name, sex, cls, dor, buildName
         }).then(resp => {
-          console.log(resp)
           if (resp && resp.status === 200) {
             _this.students = resp.data.data
           }
+          this.loadStudents()
         })
     },
     loadStudents () {

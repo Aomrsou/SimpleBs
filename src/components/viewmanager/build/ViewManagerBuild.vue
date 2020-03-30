@@ -35,7 +35,7 @@
           <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
                    bodyStyle="padding:10px" shadow="hover">
             <div class="cover" @click="editBuild(item)">
-              <img src="http://localhost:8888/bs/img/465775f1-162d-41f2-836c-946465fa4344.jpg" alt="封面">
+              <img src="http://39.105.72.22:8888/bs/img/465775f1-162d-41f2-836c-946465fa4344.jpg" alt="封面">
             </div>
             <div class="info">
               <div class="title">
