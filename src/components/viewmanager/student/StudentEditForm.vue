@@ -87,7 +87,6 @@ export default {
       this.StuDialogFormVisible = false
     },
     onSureCommit () {
-      console.log(this.studentForm)
       var num = this.studentForm.xuehao
       var name = this.studentForm.xingming
       var sex = this.studentForm.xingbie

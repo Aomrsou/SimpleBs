@@ -16,7 +16,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <student-edit-form @onSubmit="loadStudents" ref="insert"></student-edit-form>
+          <student-edit-form @onSubmit="onSubmit" ref="insert"></student-edit-form>
         </el-form-item>
       </el-form>
       <el-form :inline="true" class="demo-form-inline">
@@ -88,10 +88,8 @@ export default {
   mounted: function () {
     if (this.$route.query.dornum) {
       this.dor = this.$route.query.dornum
-      this.onSubmit()
-    } else {
-      this.loadStudents()
     }
+    this.onSubmit()
     this.buildSelect()
     this.classSelect()
     this.dorSelect()
@@ -105,11 +103,11 @@ export default {
       var cls = this.cls
       var dor = this.dor
       var buildName = this.buildName
+      console.log(dor + 'wogiao')
       this.$axios
         .post('/stu/list', {
           num, name, sex, cls, dor, buildName
         }).then(resp => {
-          console.log(resp)
           if (resp && resp.status === 200) {
             _this.students = resp.data.data
           }
@@ -151,7 +149,6 @@ export default {
       })
     },
     editStudent (item) {
-      console.log(item)
       this.$refs.insert.StuDialogFormVisible = true
       this.$refs.insert.studentForm = {
         xuehao: item.num,
@@ -178,7 +175,7 @@ export default {
               type: 'success',
               message: '删除成功！'
             })
-            this.loadStudents()
+            this.onSubmit()
           }
         })
       })

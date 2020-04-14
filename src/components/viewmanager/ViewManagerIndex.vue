@@ -16,6 +16,13 @@ import LeftSideMenu from './LeftSideMenu'
 export default {
   name: 'ViewManagerIndex',
   components: {LeftSideMenu},
+  mounted: function () {
+    const h = this.$createElement
+    this.$notify({
+      title: 'Tips:',
+      message: h('i', {style: 'color: teal'}, '点击图片进入编辑模式，点击蓝色名称进入此模块')
+    })
+  },
   data () {
     const item = {
       date: '2020-02-12',
