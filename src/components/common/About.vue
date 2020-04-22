@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div style="border-top:1px #1F1F1F solid;">
-      <p class="alt" style="color:#999; line-height:0">&copy; 版权所有：张子扬 &nbsp;
+      <p class="alt" style="color:#999; line-height:0">&copy; 版权所有：张子扬  &nbsp;
         <span>技术支持：</span>
         <a href="" target="_blank" style="color:#999;">张子扬</a>
       </p>
