@@ -24,7 +24,7 @@
             </div>
             <div v-if="loses.flag == 1">
               <i class="el-icon-check">已解决</i>
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle @click="deleteFix(loses.id)"></el-button>
             </div>
           </div>
         </div>

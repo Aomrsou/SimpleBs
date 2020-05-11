@@ -53,6 +53,17 @@ export default {
         })
       }
     },
+    openFullScreen2 () {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      setTimeout(() => {
+        loading.close()
+      }, 1000)
+    },
     login () {
       let path = '/loginStudent'
       if (this.isAdmin) {
@@ -67,10 +78,13 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             // var data = this.loginForm
+            this.openFullScreen2()
             _this.$store.commit('login', _this.loginForm)
             window.localStorage.setItem('myInfo', JSON.stringify(successResponse.data.data[0]))
-            var path = this.$route.query.redirect
-            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+            setTimeout(() => {
+              var path = this.$route.query.redirect
+              this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+            }, 1000)
             // location.reload()
           } else if (successResponse.data.code === 404) {
             this.$message({
