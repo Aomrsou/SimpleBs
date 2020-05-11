@@ -103,7 +103,6 @@ export default {
           if (resp && resp.status === 200) {
             _this.students = resp.data.data
           }
-          this.loadStudents()
         })
     },
     loadStudents () {

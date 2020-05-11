@@ -2,7 +2,7 @@
   <body id="poster">
     <el-form class="login-container" label-position="left"
              label-width="0px">
-      <h3 class="login_title">系统登录</h3>
+      <h3 class="login_title">可视化宿舍管理平台登录</h3>
       <el-form-item>
         <el-input type="text" v-model="loginForm.username"
                   auto-complete="off" placeholder="账号"></el-input>
@@ -89,7 +89,7 @@ export default {
   .login-container {
     border-radius: 15px;
     background-clip: padding-box;
-    margin: 90px auto;
+    margin: 160px auto;
     width: 350px;
     padding: 35px 35px 15px 35px;
     background: #fff;
@@ -103,7 +103,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background:url("../assets/eva.jpg") no-repeat;
+    background:url("../assets/bgpic.jpg") no-repeat;
     background-position: center;
     height: 100%;
     width: 100%;
