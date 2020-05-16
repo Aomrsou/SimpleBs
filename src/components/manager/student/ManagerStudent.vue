@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header height="100px" style="padding: 10px">
+    <el-header height="150px" style="padding: 10px">
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item  label="学号">
           <el-input v-model="num" placeholder="请输入学号" style="width: 180px"></el-input>
@@ -16,7 +16,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <student-edit-form @onSubmit="loadStudents" ref="insert"></student-edit-form>
+          <student-edit-form @onSubmit="onSubmit" ref="insert"></student-edit-form>
         </el-form-item>
       </el-form>
       <el-form :inline="true" class="demo-form-inline">
@@ -36,12 +36,18 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" style="width: 160px">查询</el-button>
+          <el-button type="primary" @click="onSubmit" style="width: 80px">查询</el-button>
         </el-form-item>
       </el-form>
+      <el-form>
+        <el-form-item>
+          <download-excel :data="json_data" :fields="json_fields" name="学生信息.xls" >
+            <el-button type="warning">导出学生信息为excel表</el-button>
+          </download-excel>
+        </el-form-item></el-form>
     </el-header>
     <el-main>
-      <el-table :data="students" style="width: 100%;margin: 10px">
+      <el-table :data="students.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%;margin: 10px">
         <el-table-column prop="num" label="学号" width="160"></el-table-column>
         <el-table-column prop="name" label="姓名" width="120"></el-table-column>
         <el-table-column prop="sex" label="性别" width="100"></el-table-column>
@@ -54,8 +60,15 @@
             </el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除
             </el-button>
-          </template></el-table-column>
+          </template>
+        </el-table-column>
       </el-table>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pagesize"
+        :total="students.length">
+      </el-pagination>
     </el-main>
   </el-container>
 </template>
@@ -78,7 +91,27 @@ export default {
       sex: '',
       cls: '',
       dor: '',
-      buildName: ''
+      buildName: '',
+      total: 0,
+      pagesize: 5,
+      currentPage: 1,
+      json_fields: {
+        '学号': 'num',
+        '姓名': 'name',
+        '性别': 'sex',
+        '班级': 'cls',
+        '宿舍楼': 'buildName',
+        '宿舍': 'dor'
+      },
+      json_data: [],
+      json_meta: [
+        [
+          {
+            'key': 'charset',
+            'value': 'utf-8'
+          }
+        ]
+      ]
     }
   },
   mounted: function () {
@@ -105,11 +138,15 @@ export default {
           }
         })
     },
+    handleCurrentChange: function (currentPage) {
+      this.currentPage = currentPage
+    },
     loadStudents () {
       var _this = this
       this.$axios.get('/stu/getlist').then(resp => {
         if (resp && resp.status === 200) {
           _this.students = resp.data.data
+          _this.json_data = resp.data.data
         }
       })
     },

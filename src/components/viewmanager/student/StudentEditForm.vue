@@ -94,7 +94,7 @@ export default {
       var dor = this.studentForm.sushe
       var id = this.studentForm.id
       var did = this.studentForm.susheid
-      var buildName = this.myFlag
+      var buildName = (dor === did) ? 'noAdjust' : 'isAdjust'
       this.$axios.post('/stu/addOrUpdate', {
         num, name, sex, cls, dor, id, did, buildName
       }).then(resp => {

@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item  label="宿舍" :label-width="formLabelWidth">
           <el-select v-model="studentForm.sushe" filterable placeholder="请先选择宿舍楼" :disabled="flagToDisable">
-            <el-option v-for="(item,index) in dorSelectInfoByBid" :key="index" :label="item.dornum" :value="item.did" @click="myFlag = 'isAdjust'"></el-option>
+            <el-option v-for="(item,index) in dorSelectInfoByBid" :key="index" :label="item.dornum" :value="item.did"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item style="height: 0">
@@ -95,7 +95,7 @@ export default {
       var dor = this.studentForm.sushe
       var id = this.studentForm.id
       var did = this.studentForm.susheid
-      var buildName = this.myFlag
+      var buildName = (dor === did) ? 'noAdjust' : 'isAdjust'
       this.$axios.post('/stu/addOrUpdate', {
         num, name, sex, cls, dor, id, did, buildName
       }).then(resp => {
