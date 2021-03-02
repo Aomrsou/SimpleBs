@@ -42,9 +42,9 @@
 </template>
 
 <script>
-export default {
-  name: 'UpdateCard'
-}
+    export default {
+        name: 'UpdateCard'
+    }
 </script>
 
 <style scoped>

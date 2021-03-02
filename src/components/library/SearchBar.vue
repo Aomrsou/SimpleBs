@@ -13,21 +13,21 @@
 </template>
 
 <script>
-export default {
-  name: 'SearchBar',
-  data () {
-    return {
-      keywords: '',
-      books: [],
-      cardLoading: []
+    export default {
+        name: 'SearchBar',
+        data() {
+            return {
+                keywords: '',
+                books: [],
+                cardLoading: []
+            }
+        },
+        methods: {
+            searchClick() {
+                this.$emit('onSearch')
+            }
+        }
     }
-  },
-  methods: {
-    searchClick () {
-      this.$emit('onSearch')
-    }
-  }
-}
 </script>
 
 <style scoped>

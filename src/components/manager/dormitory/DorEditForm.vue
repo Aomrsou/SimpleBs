@@ -5,7 +5,8 @@
       <el-form v-model="dorForm" style="text-align: left">
         <el-form-item label="所属宿舍楼" :label-width="formLabelWidth">
           <el-select v-model="dorForm.buildName" placeholder="请选择宿舍楼">
-            <el-option v-for="(item,index) in curriculums" :key="index" :label="item.buildName" :value="item.bid"></el-option>
+            <el-option v-for="(item,index) in curriculums" :key="index" :label="item.buildName"
+                       :value="item.bid"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="所在楼层" :label-width="formLabelWidth">
@@ -52,70 +53,70 @@
 </template>
 
 <script>
-export default {
-  name: 'DorEditForm',
-  data () {
-    return {
-      dorForm: {
-        buildName: '',
-        floor: '1',
-        num: '',
-        dornum: '',
-        maxnum: '6',
-        heal: '',
-        nownum: '',
-        did: '',
-        bid: ''
-      },
-      DorDialogFormVisible: false,
-      formLabelWidth: '120px',
-      curriculums: []
-    }
-  },
-  mounted: function () {
-    this.buildSelect()
-  },
-  methods: {
-    clear () {
-      this.dorForm = {
-        buildName: '',
-        floor: '1',
-        num: '',
-        dornum: '',
-        maxnum: '6',
-        heal: '',
-        nownum: '',
-        did: '',
-        bid: ''
-      }
-    },
-    onSureCommit () {
-      this.$axios.post('/dor/addOrUpdate', {
-        bid: this.dorForm.bid,
-        buildName: this.dorForm.buildName,
-        did: this.dorForm.did,
-        floor: this.dorForm.floor,
-        num: this.dorForm.num,
-        dornum: this.dorForm.dornum,
-        maxnum: this.dorForm.maxnum
-      }).then(resp => {
-        if (resp && resp.status === 200) {
-          this.DorDialogFormVisible = false
-          this.$emit('onSubmit')
+    export default {
+        name: 'DorEditForm',
+        data() {
+            return {
+                dorForm: {
+                    buildName: '',
+                    floor: '1',
+                    num: '',
+                    dornum: '',
+                    maxnum: '6',
+                    heal: '',
+                    nownum: '',
+                    did: '',
+                    bid: ''
+                },
+                DorDialogFormVisible: false,
+                formLabelWidth: '120px',
+                curriculums: []
+            }
+        },
+        mounted: function () {
+            this.buildSelect()
+        },
+        methods: {
+            clear() {
+                this.dorForm = {
+                    buildName: '',
+                    floor: '1',
+                    num: '',
+                    dornum: '',
+                    maxnum: '6',
+                    heal: '',
+                    nownum: '',
+                    did: '',
+                    bid: ''
+                }
+            },
+            onSureCommit() {
+                this.$axios.post('/dor/addOrUpdate', {
+                    bid: this.dorForm.bid,
+                    buildName: this.dorForm.buildName,
+                    did: this.dorForm.did,
+                    floor: this.dorForm.floor,
+                    num: this.dorForm.num,
+                    dornum: this.dorForm.dornum,
+                    maxnum: this.dorForm.maxnum
+                }).then(resp => {
+                    if (resp && resp.status === 200) {
+                        this.DorDialogFormVisible = false
+                        this.$emit('onSubmit')
+                    }
+                })
+            },
+            compute() {
+                this.dorForm.dornum = this.dorForm.floor + this.dorForm.num
+            },
+            buildSelect() {
+                var _this = this
+                this.$axios.get('/build/buildSelect').then(resp => {
+                    _this.curriculums = resp.data.data
+                })
+            }
         }
-      })
-    },
-    compute () {
-      this.dorForm.dornum = this.dorForm.floor + this.dorForm.num
-    },
-    buildSelect () {
-      var _this = this
-      this.$axios.get('/build/buildSelect').then(resp => {
-        _this.curriculums = resp.data.data
-      })
     }
-  }
-}
 </script>
 
 <style scoped>

@@ -2,12 +2,13 @@
   <el-container>
     <el-header height="100px" style="padding: 10px">
       <el-form :inline="true" class="demo-form-inline">
-        <el-form-item  label="宿舍楼">
+        <el-form-item label="宿舍楼">
           <el-select v-model="searchBuild" placeholder="请选择宿舍楼">
-            <el-option v-for="(item,index) in curriculums" :key="index" :label="item.buildName" :value="item.bid"></el-option>
+            <el-option v-for="(item,index) in curriculums" :key="index" :label="item.buildName"
+                       :value="item.bid"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  label="楼层">
+        <el-form-item label="楼层">
           <el-select v-model="searchFloor" placeholder="请选择楼层">
             <el-option label="1层" value="1"></el-option>
             <el-option label="2层" value="2"></el-option>
@@ -17,7 +18,7 @@
             <el-option label="6层" value="6"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  label="宿舍号">
+        <el-form-item label="宿舍号">
           <el-input v-model="searchNum" placeholder="请输入宿舍号" style="width: 180px"></el-input>
         </el-form-item>
       </el-form>
@@ -58,114 +59,114 @@
 </template>
 
 <script>
-import DorEditForm from './DorEditForm'
+    import DorEditForm from './DorEditForm'
 
-export default {
-  name: 'ViewManagerDormitory',
-  components: {DorEditForm},
-  data () {
-    return {
-      dormitorys: [],
-      curriculums: [],
-      buildName: '',
-      dornum: '',
-      floor: '',
-      maxnum: '',
-      numnum: '',
-      bid: '',
-      did: '',
-      searchBuild: '',
-      searchFloor: '',
-      searchNum: ''
-    }
-  },
-  mounted: function () {
-    if (this.$route.query.id) {
-      this.searchBuild = this.$route.query.id
-      this.searchDormitory()
-    } else {
-      this.loadDormitorys()
-    }
-    this.buildSelect()
-  },
-  methods: {
-    loadDormitorys () {
-      var _this = this
-      this.$axios.get('/dor/getlist').then(resp => {
-        if (resp && resp.status === 200) {
-          _this.dormitorys = resp.data.data
-          for (let i = 0; i < _this.dormitorys.length; i++) {
-            var temp = _this.dormitorys[i].nownum
-            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
-          }
-        }
-      })
-    },
-    searchDormitory () {
-      var _this = this
-      var bid = this.searchBuild
-      var floor = this.searchFloor
-      var dornum = this.searchNum
-      this.$axios.post('/dor/list', {
-        bid, floor, dornum
-      }).then(resp => {
-        if (resp && resp.status === 200) {
-          _this.dormitorys = resp.data.data
-          for (let i = 0; i < _this.dormitorys.length; i++) {
-            var temp = _this.dormitorys[i].nownum
-            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
-          }
-        }
-      })
-    },
-    editBuild (item) {
-      this.$refs.edit.DorDialogFormVisible = true
-      this.$refs.edit.dorForm = {
-        buildName: item.buildName,
-        floor: item.floor,
-        num: item.num,
-        dornum: item.floor + item.num,
-        maxnum: item.maxnum,
-        heal: item.heal,
-        nownum: item.nownum,
-        did: item.did,
-        bid: item.bid
-      }
-    },
-    handleDelete (index, nownum) {
-      if (nownum === 0) {
-        this.$confirm('此操作将永久删除该宿舍, 是否继续?', '警告', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$axios.post('/dor/delete', {
-            did: index
-          }).then(resp => {
-            if (resp && resp.status === 200) {
-              this.$message({
-                type: 'success',
-                message: '删除成功！'
-              })
-              this.searchDormitory()
+    export default {
+        name: 'ViewManagerDormitory',
+        components: {DorEditForm},
+        data() {
+            return {
+                dormitorys: [],
+                curriculums: [],
+                buildName: '',
+                dornum: '',
+                floor: '',
+                maxnum: '',
+                numnum: '',
+                bid: '',
+                did: '',
+                searchBuild: '',
+                searchFloor: '',
+                searchNum: ''
             }
-          })
-        })
-      } else {
-        this.$message({
-          type: 'info',
-          message: '尚有人居住，无法删除！'
-        })
-      }
-    },
-    buildSelect () {
-      var _this = this
-      this.$axios.get('/build/buildSelect').then(resp => {
-        _this.curriculums = resp.data.data
-      })
+        },
+        mounted: function () {
+            if (this.$route.query.id) {
+                this.searchBuild = this.$route.query.id
+                this.searchDormitory()
+            } else {
+                this.loadDormitorys()
+            }
+            this.buildSelect()
+        },
+        methods: {
+            loadDormitorys() {
+                var _this = this
+                this.$axios.get('/dor/getlist').then(resp => {
+                    if (resp && resp.status === 200) {
+                        _this.dormitorys = resp.data.data
+                        for (let i = 0; i < _this.dormitorys.length; i++) {
+                            var temp = _this.dormitorys[i].nownum
+                            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
+                        }
+                    }
+                })
+            },
+            searchDormitory() {
+                var _this = this
+                var bid = this.searchBuild
+                var floor = this.searchFloor
+                var dornum = this.searchNum
+                this.$axios.post('/dor/list', {
+                    bid, floor, dornum
+                }).then(resp => {
+                    if (resp && resp.status === 200) {
+                        _this.dormitorys = resp.data.data
+                        for (let i = 0; i < _this.dormitorys.length; i++) {
+                            var temp = _this.dormitorys[i].nownum
+                            _this.dormitorys[i].heal = 'http://39.105.72.22:8888/bs/img/' + temp + '.png'
+                        }
+                    }
+                })
+            },
+            editBuild(item) {
+                this.$refs.edit.DorDialogFormVisible = true
+                this.$refs.edit.dorForm = {
+                    buildName: item.buildName,
+                    floor: item.floor,
+                    num: item.num,
+                    dornum: item.floor + item.num,
+                    maxnum: item.maxnum,
+                    heal: item.heal,
+                    nownum: item.nownum,
+                    did: item.did,
+                    bid: item.bid
+                }
+            },
+            handleDelete(index, nownum) {
+                if (nownum === 0) {
+                    this.$confirm('此操作将永久删除该宿舍, 是否继续?', '警告', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$axios.post('/dor/delete', {
+                            did: index
+                        }).then(resp => {
+                            if (resp && resp.status === 200) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除成功！'
+                                })
+                                this.searchDormitory()
+                            }
+                        })
+                    })
+                } else {
+                    this.$message({
+                        type: 'info',
+                        message: '尚有人居住，无法删除！'
+                    })
+                }
+            },
+            buildSelect() {
+                var _this = this
+                this.$axios.get('/build/buildSelect').then(resp => {
+                    _this.curriculums = resp.data.data
+                })
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped>

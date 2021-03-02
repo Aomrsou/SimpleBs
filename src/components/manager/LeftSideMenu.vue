@@ -17,13 +17,13 @@
           <el-menu-item :index="'/admin/hygiene'">卫生信息展示</el-menu-item>
         </el-submenu>
       </el-submenu>
-<!--      <el-submenu index="2">-->
-<!--        <template slot="title"><i class="el-icon-menu"></i>访客权限管理</template>-->
-<!--        <el-menu-item-group>-->
-<!--          <template slot="title">访客管理</template>-->
-<!--          <el-menu-item index="2-1">访客权限管理</el-menu-item>-->
-<!--        </el-menu-item-group>-->
-<!--      </el-submenu>-->
+      <!--      <el-submenu index="2">-->
+      <!--        <template slot="title"><i class="el-icon-menu"></i>访客权限管理</template>-->
+      <!--        <el-menu-item-group>-->
+      <!--          <template slot="title">访客管理</template>-->
+      <!--          <el-menu-item index="2-1">访客权限管理</el-menu-item>-->
+      <!--        </el-menu-item-group>-->
+      <!--      </el-submenu>-->
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-setting"></i>失物报修管理</template>
         <el-menu-item-group>
@@ -39,17 +39,17 @@
 </template>
 
 <script>
-export default {
-  name: 'LeftSideMenu',
-  data () {
-    return {
-      active: ''
+    export default {
+        name: 'LeftSideMenu',
+        data() {
+            return {
+                active: ''
+            }
+        },
+        mounted: function () {
+            this.active = this.$route.name
+        }
     }
-  },
-  mounted: function () {
-    this.active = this.$route.name
-  }
-}
 </script>
 
 <style scoped>

@@ -13,9 +13,9 @@
 </template>
 
 <script>
-export default {
-  name: 'Slogan'
-}
+    export default {
+        name: 'Slogan'
+    }
 </script>
 
 <style scoped>
@@ -26,13 +26,16 @@ export default {
     text-align: center;
     margin-top: 5px;
   }
+
   .slogan {
     width: 100%;
   }
+
   .git-link {
     width: 80px;
     /*position: absolute;*/
   }
+
   .csdn-link {
     width: 65px;
     /*position: absolute;*/

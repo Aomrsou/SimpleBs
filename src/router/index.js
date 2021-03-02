@@ -23,6 +23,7 @@ import ViewManagerFixAdmin from '../components/viewmanager/manageFix/ViewManager
 import ViewManagerHygiene from '../components/viewmanager/hygiene/ViewManagerHygiene'
 import ViewManagerLosAdmin from '../components/viewmanager/manageLos/ViewManagerLosAdmin'
 import ViewManagerStudent from '../components/viewmanager/student/ViewManagerStudent'
+import StudentFix from "../components/fix/StudentFix";
 
 Vue.use(Router)
 
@@ -61,6 +62,14 @@ export default new Router({
           path: '/fix',
           name: 'Fix',
           component: ManagerFix,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/studentFix',
+          name: 'StudentFix',
+          component: StudentFix,
           meta: {
             requireAuth: true
           }

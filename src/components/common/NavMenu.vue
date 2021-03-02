@@ -43,57 +43,58 @@
 </template>
 
 <script>
-export default {
-  name: 'NavMenu',
-  data (key) {
-    return {
-      navList: [
-        {name: '/index', navItem: '首页'},
-        {name: '/fix', navItem: '反馈报修'},
-        {name: '/los', navItem: '失物招领'},
-        {name: '/library', navItem: '图书馆'},
-        {name: '/admin/student', navItem: '后台管理'},
-        {name: '/viewadmin/build', navItem: '可视化后台'}
-      ],
-      username: '',
-      active: 'index',
-      drawer: false,
-      myInfo: []
+    export default {
+        name: 'NavMenu',
+        data(key) {
+            return {
+                navList: [
+                    {name: '/index', navItem: '首页'},
+                    {name: '/studentFix', navItem: '寝室报修'},
+                    {name: '/los', navItem: '失物招领'},
+                    // {name: '/library', navItem: '图书馆'},
+                    {name: '/admin/student', navItem: '后台管理'},
+                    {name: '/viewadmin/build', navItem: '可视化后台'}
+                ],
+                username: '',
+                active: 'index',
+                drawer: false,
+                myInfo: []
+            }
+        },
+        mounted: function () {
+            this.active = this.$route.name
+            var usr = window.localStorage.getItem('user')
+            const str = JSON.parse(usr)
+            this.username = str.username
+            if (str.username !== 'admin') {
+                this.navList.pop()
+                this.navList.pop()
+            }
+            var info = window.localStorage.getItem('myInfo')
+            this.myInfo = JSON.parse(info)
+            console.log(this.myInfo)
+        },
+        methods: {
+            loginOut() {
+                this.$confirm('确定退出登录吗？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'info'
+                }).then(() => {
+                    window.localStorage.clear()
+                    this.$router.replace('/login')
+                    location.reload()
+                })
+            }
+        }
     }
-  },
-  mounted: function () {
-    this.active = this.$route.name
-    var usr = window.localStorage.getItem('user')
-    const str = JSON.parse(usr)
-    this.username = str.username
-    if (str.username !== 'admin') {
-      this.navList.pop()
-      this.navList.pop()
-    }
-    var info = window.localStorage.getItem('myInfo')
-    this.myInfo = JSON.parse(info)
-    console.log(this.myInfo)
-  },
-  methods: {
-    loginOut () {
-      this.$confirm('确定退出登录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'info'
-      }).then(() => {
-        window.localStorage.clear()
-        this.$router.replace('/login')
-        location.reload()
-      })
-    }
-  }
-}
 </script>
 
 <style scoped>
-  a{
+  a {
     text-decoration: none;
   }
+
   span {
     pointer-events: none;
   }

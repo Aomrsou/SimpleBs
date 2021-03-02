@@ -50,87 +50,87 @@
 </template>
 
 <script>
-import BuildEditForm from './BuildEditForm'
+    import BuildEditForm from './BuildEditForm'
 
-export default {
-  name: 'ManagerBuild',
-  components: {BuildEditForm},
-  data () {
-    return {
-      builds: [],
-      searchBuildName: '',
-      searchBuildNo: ''
-    }
-  },
-  mounted: function () {
-    this.loadBuild()
-  },
-  methods: {
-    loadBuild () {
-      var _this = this
-      this.$axios.get('/build/getlist').then(resp => {
-        if (resp && resp.status === 200) {
-          _this.builds = resp.data.data
-        }
-      })
-    },
-    searchBuild () {
-      var _this = this
-      var buildName = this.searchBuildName
-      var buildNo = this.searchBuildNo
-      this.$axios.post('/build/list', {
-        buildName, buildNo
-      }).then(resp => {
-        if (resp && resp.status === 200) {
-          _this.builds = resp.data.data
-        }
-      })
-    },
-    editBuild (item) {
-      this.$refs.edit.BuildDialogFormVisible = true
-      this.$refs.edit.buildForm = {
-        name: item.buildName,
-        no: item.buildNo,
-        id: item.bid
-      }
-    },
-    handleDelete (index) {
-      this.$confirm('此操作将永久删除该宿舍楼及其下属宿舍, 是否继续?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post('/build/delete', {
-          bid: index
-        }).then(resp => {
-          if (resp && resp.data.code === 200) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-            this.loadBuild()
-          } else {
-            var numbersRoom = resp.data.data
-            var str = '('
-            for (var key in numbersRoom) {
-              str += numbersRoom[key].dornum + '有' + numbersRoom[key].nownum + '人,'
+    export default {
+        name: 'ManagerBuild',
+        components: {BuildEditForm},
+        data() {
+            return {
+                builds: [],
+                searchBuildName: '',
+                searchBuildNo: ''
             }
-            str += '等)'
-            this.$message({
-              type: 'danger',
-              message: '该宿舍楼内' + str + '居住，无法删除!'
-            })
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+        },
+        mounted: function () {
+            this.loadBuild()
+        },
+        methods: {
+            loadBuild() {
+                var _this = this
+                this.$axios.get('/build/getlist').then(resp => {
+                    if (resp && resp.status === 200) {
+                        _this.builds = resp.data.data
+                    }
+                })
+            },
+            searchBuild() {
+                var _this = this
+                var buildName = this.searchBuildName
+                var buildNo = this.searchBuildNo
+                this.$axios.post('/build/list', {
+                    buildName, buildNo
+                }).then(resp => {
+                    if (resp && resp.status === 200) {
+                        _this.builds = resp.data.data
+                    }
+                })
+            },
+            editBuild(item) {
+                this.$refs.edit.BuildDialogFormVisible = true
+                this.$refs.edit.buildForm = {
+                    name: item.buildName,
+                    no: item.buildNo,
+                    id: item.bid
+                }
+            },
+            handleDelete(index) {
+                this.$confirm('此操作将永久删除该宿舍楼及其下属宿舍, 是否继续?', '警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$axios.post('/build/delete', {
+                        bid: index
+                    }).then(resp => {
+                        if (resp && resp.data.code === 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            })
+                            this.loadBuild()
+                        } else {
+                            var numbersRoom = resp.data.data
+                            var str = '('
+                            for (var key in numbersRoom) {
+                                str += numbersRoom[key].dornum + '有' + numbersRoom[key].nownum + '人,'
+                            }
+                            str += '等)'
+                            this.$message({
+                                type: 'danger',
+                                message: '该宿舍楼内' + str + '居住，无法删除!'
+                            })
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    })
+                })
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped>

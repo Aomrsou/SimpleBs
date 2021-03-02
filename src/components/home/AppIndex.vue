@@ -15,16 +15,17 @@
 </template>
 
 <script>
-import Carousel from './Carousel'
-import QuickNav from './QuickNav'
-import Slogan from './Slogan'
-import About from '@/components/common/About'
-import UpdateCard from './UpdateCard'
-import SideMenu from './SideMenu'
-export default {
-  name: 'AppIndex',
-  components: {Carousel, QuickNav, Slogan, About, UpdateCard, SideMenu}
-}
+    import Carousel from './Carousel'
+    import QuickNav from './QuickNav'
+    import Slogan from './Slogan'
+    import About from '@/components/common/About'
+    import UpdateCard from './UpdateCard'
+    import SideMenu from './SideMenu'
+
+    export default {
+        name: 'AppIndex',
+        components: {Carousel, QuickNav, Slogan, About, UpdateCard, SideMenu}
+    }
 </script>
 
 <style scoped>
@@ -34,11 +35,13 @@ export default {
     margin-right: auto;
     margin-top: -20px;
   }
+
   #header-div {
     padding-bottom: 20px;
     padding-left: 5px;
     background-color: white;
   }
+
   #side-menu {
     position: fixed;
     margin-left: 50%;

@@ -11,25 +11,25 @@
 </template>
 
 <script>
-import SideMenu from './SideMenu'
-import Books from './Books'
+    import SideMenu from './SideMenu'
+    import Books from './Books'
 
-export default {
-  name: 'AppLibrary',
-  components: {Books, SideMenu},
-  methods: {
-    listByCategory () {
-      var _this = this
-      var cid = this.$refs.sideMenu.cid
-      var url = 'categories/' + cid + '/books'
-      this.$axios.get(url).then(resp => {
-        if (resp && resp.status === 200) {
-          _this.$refs.booksArea.books = resp.data
+    export default {
+        name: 'AppLibrary',
+        components: {Books, SideMenu},
+        methods: {
+            listByCategory() {
+                var _this = this
+                var cid = this.$refs.sideMenu.cid
+                var url = 'categories/' + cid + '/books'
+                this.$axios.get(url).then(resp => {
+                    if (resp && resp.status === 200) {
+                        _this.$refs.booksArea.books = resp.data
+                    }
+                })
+            }
         }
-      })
     }
-  }
-}
 </script>
 
 <style scoped>

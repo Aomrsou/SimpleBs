@@ -10,9 +10,9 @@
 </template>
 
 <script>
-export default {
-  name: 'QuickNav'
-}
+    export default {
+        name: 'QuickNav'
+    }
 </script>
 
 <style scoped>
@@ -21,6 +21,7 @@ export default {
     height: 318px;
     background-color: transparent;
   }
+
   .monster {
     width: 280px;
     height: 260px;
@@ -28,6 +29,7 @@ export default {
     /*top: 150px;*/
     /*left: 700px;*/
   }
+
   .readme {
     width: 300px;
     height: 285px;
@@ -36,12 +38,14 @@ export default {
     top: 300px;
     left: 230px;
   }
+
   .spark {
     position: absolute;
     margin-left: 50%;
     top: 100px;
     left: 20px;
   }
+
   .logo {
     width: 280px;
     position: absolute;

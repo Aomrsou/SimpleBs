@@ -20,40 +20,40 @@
 </template>
 
 <script>
-export default {
-  name: 'ClassEditForm',
-  data () {
-    return {
-      classForm: {
-        name: '',
-        flag: '1',
-        id: ''
-      },
-      ClassDialogFormVisible: false,
-      formLabelWidth: '120px'
-    }
-  },
-  methods: {
-    clear () {
-      this.classForm = {
-        name: '',
-        flag: '1',
-        id: ''
-      }
-    },
-    onSureCommit () {
-      this.$axios.post('/class/add', {
-        name: this.classForm.name,
-        flag: this.classForm.flag
-      }).then(resp => {
-        if (resp && resp.status === 200) {
-          this.ClassDialogFormVisible = false
-          this.$emit('onSubmit')
+    export default {
+        name: 'ClassEditForm',
+        data() {
+            return {
+                classForm: {
+                    name: '',
+                    flag: '1',
+                    id: ''
+                },
+                ClassDialogFormVisible: false,
+                formLabelWidth: '120px'
+            }
+        },
+        methods: {
+            clear() {
+                this.classForm = {
+                    name: '',
+                    flag: '1',
+                    id: ''
+                }
+            },
+            onSureCommit() {
+                this.$axios.post('/class/add', {
+                    name: this.classForm.name,
+                    flag: this.classForm.flag
+                }).then(resp => {
+                    if (resp && resp.status === 200) {
+                        this.ClassDialogFormVisible = false
+                        this.$emit('onSubmit')
+                    }
+                })
+            }
         }
-      })
     }
-  }
-}
 </script>
 
 <style scoped>
