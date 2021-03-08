@@ -45,7 +45,7 @@
         <el-button type="success" icon="el-icon-share" style="margin-left: 30px" v-if="item.display == 0" @click="displayFix(item.id)">分享报修信息</el-button>
         <el-button type="success" icon="el-icon-check" style="margin-left: 30px" v-if="item.display == 1" :disabled="true">已分享</el-button>
         <div style="width: 70%; margin-top: 20px" >
-          <el-steps :active="item.process" align-center finish-status="success" process-status="process">
+          <el-steps :active="item.process" align-center process-status="process">
             <el-step title="已完成"></el-step>
             <el-step title="正在受理"></el-step>
             <el-step title="正在维修"></el-step>
@@ -123,13 +123,24 @@
                 })
             },
             displayFix(id){
-                this.$axios.post('/studentFix/update',{
-                    id: id,
-                    display: 1
-                }).then(resp => {
-                    if(resp.data.code == 200){
-                        this.message
-                    }
+
+                this.$confirm('是否分享该报修给舍友？', '提示', {
+                    confirmButtonText: '分享',
+                    cancelButtonText: '再等等',
+                    type: 'info'
+                }).then(() => {
+                    this.$axios.post('/studentFix/update',{
+                        id: id,
+                        display: 1
+                    }).then(resp => {
+                        if (resp.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '已分享信息给舍友!'
+                            })
+                        }
+                        this.getMyFix()
+                    })
                 })
             }
         },

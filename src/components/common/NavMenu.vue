@@ -17,10 +17,10 @@
       当前用户：{{username}}
     </el-button>
     <el-drawer
-      title="我是标题"
+      title="公告"
       :visible.sync="drawer"
-      :with-header="false"
-      style="padding-top: 60px; padding-bottom: 300px">
+      :with-header="true"
+      style="">
       <div v-if="myInfo.name !== 'admin'">
         <span><i class="el-icon-caret-right">姓名 :  </i>{{myInfo.name}}</span><br>
         <span><i class="el-icon-caret-right">学号 :  </i>{{myInfo.num}}</span><br>
