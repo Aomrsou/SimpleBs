@@ -11,7 +11,7 @@
     :limit="1"
     :on-exceed="handleExceed"
     :file-list="fileList">
-    <el-button type="primary" plain style="width: 220px">点击上传 损坏处图片<i class="el-icon-upload el-icon--right"></i></el-button>
+    <el-button type="primary" plain style="width: 220px">点击上传 图片<i class="el-icon-upload el-icon--right"></i></el-button>
     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
   </el-upload>
 </template>

@@ -5,11 +5,17 @@
     <a href="#header-div">
       <el-menu-item index="1">
         <i class="el-icon-menu"></i>
+        <span slot="title">我的信息</span>
+      </el-menu-item>
+    </a>
+    <a href="#header-div">
+      <el-menu-item index="2">
+        <i class="el-icon-menu"></i>
         <span slot="title">我的舍友</span>
       </el-menu-item>
     </a>
     <a href="#update-card">
-      <el-menu-item index="2">
+      <el-menu-item index="3">
         <i class="el-icon-menu"></i>
         <span slot="title">宿舍报修</span>
       </el-menu-item>

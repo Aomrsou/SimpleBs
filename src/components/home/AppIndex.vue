@@ -3,7 +3,9 @@
     <side-menu id="side-menu"></side-menu>
     <div class="home">
       <div id="header-div">
-        <div style="height: 60px"></div>
+        <div style="width:600px">
+          <MyInfoManage></MyInfoManage>
+        </div>
         <carousel></carousel>
       </div>
       <update-card id="update-card"></update-card>
@@ -13,15 +15,13 @@
 
 <script>
     import Carousel from './Carousel'
-    import QuickNav from './QuickNav'
-    import Slogan from './Slogan'
-    import About from '@/components/common/About'
     import UpdateCard from './UpdateCard'
     import SideMenu from './SideMenu'
+    import MyInfoManage from "./MyInfoManage";
 
     export default {
         name: 'AppIndex',
-        components: {Carousel, QuickNav, Slogan, About, UpdateCard, SideMenu}
+        components: {Carousel, UpdateCard, SideMenu, MyInfoManage}
     }
 </script>
 

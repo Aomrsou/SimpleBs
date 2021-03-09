@@ -14,8 +14,8 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="sex"
-      label="性别">
+      prop="phone"
+      label="联系方式">
     </el-table-column>
   </el-table>
 </template>

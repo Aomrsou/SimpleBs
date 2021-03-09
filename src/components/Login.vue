@@ -108,15 +108,18 @@
                     })
                     .then(successResponse => {
                         if (successResponse.data.code === 200) {
-                            // var data = this.loginForm
                             this.openFullScreen2()
                             _this.$store.commit('login', _this.loginForm)
                             window.localStorage.setItem('myInfo', JSON.stringify(successResponse.data.data[0]))
+                            console.log(JSON.stringify(successResponse.data.data[0]))
                             setTimeout(() => {
                                 var path = this.$route.query.redirect
-                                this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+                                var route = '/admin/fix'
+                                if(JSON.stringify(successResponse.data.data[0].name) !== '"admin"'){
+                                    route = '/index'
+                                }
+                                this.$router.replace({path: path === '/' || path === undefined ? route : path})
                             }, 1000)
-                            // location.reload()
                         } else if (successResponse.data.code === 404) {
                             this.$message({
                                 type: 'info',

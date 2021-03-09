@@ -80,7 +80,7 @@
   .myFixImg {
     width: 250px;
     height: 250px;
-    margin-left: 28%;
+    margin-left: 660px;
     position: absolute;
   }
   .myTag{

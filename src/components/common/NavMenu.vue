@@ -47,14 +47,7 @@
         name: 'NavMenu',
         data(key) {
             return {
-                navList: [
-                    {name: '/index', navItem: '首页'},
-                    {name: '/studentFix', navItem: '寝室报修'},
-                    {name: '/los', navItem: '失物招领'},
-                    // {name: '/library', navItem: '图书馆'},
-                    {name: '/admin/student', navItem: '后台管理'},
-                    {name: '/viewadmin/build', navItem: '可视化后台'}
-                ],
+                navList: [],
                 username: '',
                 active: 'index',
                 drawer: false,
@@ -67,8 +60,17 @@
             const str = JSON.parse(usr)
             this.username = str.username
             if (str.username !== 'admin') {
-                this.navList.pop()
-                this.navList.pop()
+                this.navList.push(
+                    {name: '/index', navItem: '首页'},
+                    {name: '/studentFix', navItem: '寝室报修'},
+                    {name: '/los', navItem: '失物招领'}
+                    )
+            } else {
+                this.navList.push(
+                    {name: '/admin/studentFix', navItem: '公告管理'},
+                    {name: '/admin/fix', navItem: '后台管理'},
+                    {name: '/viewadmin/build', navItem: '可视化后台'}
+                )
             }
             var info = window.localStorage.getItem('myInfo')
             this.myInfo = JSON.parse(info)

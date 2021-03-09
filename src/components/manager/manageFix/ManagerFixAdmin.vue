@@ -1,34 +1,35 @@
 <template>
   <el-container>
     <el-header>
-      <el-input
-        style="width: 500px; float: left; margin: 10px" v-model="searchLos" placeholder="请输入内容">
-      </el-input>
+      <el-select v-model="searchFix" placeholder="请选择" style="width: 200px; float: left; margin: 10px">
+        <el-option label="全部" value="" key=""></el-option>
+          <el-option label="待处理" value="2" key="2"></el-option>
+          <el-option label="正在处理" value="3" key="3"></el-option>
+          <el-option label="已完成" value="4" key="4"></el-option>
+      </el-select>
       <el-button style="float: left; margin: 10px" @click="loadFix()">查询</el-button>
     </el-header>
     <el-main style="height: 600px">
       <hr style="margin-top: -20px; width: 620px; float:left">
-      <div v-for="(loses, index) in loses" v-bind:key="index">
-        <div style="width: 600px; height: 100px; margin: 10px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)"
-             :class="loses.flag == 1? 'resolved': 'normal'">
-          <div style="width: 500px; height: 40px;margin-left: 30px">
-            <i class="el-icon-collection-tag" style="float:left; margin-top: 10px; padding-right: 10px"><b>
-              {{loses.title}}</b></i>
-          </div>
-          <div style="width: 500px;">
-            {{loses.content}}
-          </div>
-          <div style="float:right; margin-top: -10px; margin-right: 10px">
-            <div v-if="loses.flag == 0">
-              <el-button type="success" icon="el-icon-check" circle @click="updateFix(loses.id)"></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle @click="deleteFix(loses.id)"></el-button>
-            </div>
-            <div v-if="loses.flag == 1">
-              <i class="el-icon-check">已解决</i>
-              <el-button type="danger" icon="el-icon-delete" circle @click="deleteFix(loses.id)"></el-button>
-            </div>
-          </div>
-        </div>
+      <div class="myFix" v-for="item in fixes">
+        <el-divider></el-divider>
+        <el-image :src="item.cover" class="myFixImg"></el-image>
+        <br>
+        <el-tag size="medium" type="danger" effect="dark" class="myTag" v-if="item.process == 2">待维修: {{item.id}}号报修</el-tag>
+        <el-tag size="medium" effect="dark" class="myTag" v-if="item.process == 3">正在维修: {{item.id}}号报修</el-tag>
+        <el-tag size="medium" type="success" effect="dark" class="myTag" v-if="item.process == 4">维修完成: {{item.id}}号报修</el-tag>
+        <br>
+        <div style="font-size: 16px;margin-left: 30px">报修人: {{item.stuname}}</div>
+        <br>
+        <div style="font-size: 16px;margin-left: 30px">宿舍位置: {{item.buildName}}</div>
+        <br>
+        <div style="font-size: 16px;margin-left: 30px">报修物品: {{item.stuff}}</div>
+        <br>
+        <div style="font-size: 16px;margin-left: 30px">报修描述: {{item.description}}</div>
+        <br>
+        <el-button type="danger" icon="el-icon-s-open" style="margin-left: 30px" @click="goFix(item.id, item.process)" v-if="item.process == 2">去处理</el-button>
+        <el-button type="primary" icon="el-icon-s-open" style="margin-left: 30px" @click="goFix(item.id, item.process)" v-if="item.process == 3">维修完成</el-button>
+        <el-button type="success" icon="el-icon-delete-solid" style="margin-left: 30px" @click="deleteFix(item.id)" v-if="item.process == 4">删除报修信息</el-button>
       </div>
       <hr style=" width: 620px; float:left">
     </el-main>
@@ -40,10 +41,10 @@
         name: 'ManagerFixAdmin',
         data() {
             return {
-                loses: [],
+                fixes: [],
                 insertTitle: '',
                 insertContent: '',
-                searchLos: ''
+                searchFix: ''
             }
         },
         mounted: function () {
@@ -52,45 +53,28 @@
         methods: {
             loadFix() {
                 var _this = this
-                var search = this.searchLos
-                this.$axios.post('/losAndFix/listFix', {
-                    searchContent: search
+                this.$axios.post('/studentFix/list', {
+                    process: this.searchFix
                 }).then(resp => {
                     if (resp && resp.status === 200) {
-                        _this.loses = resp.data.data
+                        _this.fixes = resp.data.data
                     }
                 })
             },
-            insert() {
-                var title = this.insertTitle
-                var content = this.insertContent
-                this.$axios.post('losAndFix/addFix', {
-                    title, content
-                }).then(resp => {
-                    if (resp && resp.status === 200) {
-                        this.$message({
-                            type: 'success',
-                            message: '发表成功!'
-                        })
-                    }
-                    this.loadFix()
-                })
-                this.insertTitle = ''
-                this.insertContent = ''
-            },
-            updateFix(id) {
-                this.$confirm('该问题已解决？', '˙○˙ฅ', {
-                    confirmButtonText: '是',
-                    cancelButtonText: '非',
+            goFix(id, process) {
+                this.$confirm('结束当前阶段，进入下一阶段？', '˙○˙ฅ', {
+                    confirmButtonText: '下一阶段',
+                    cancelButtonText: '取消',
                     type: 'info'
                 }).then(() => {
-                    this.$axios.post('losAndFix/updateFix', {
-                        id
+                    this.$axios.post('/studentFix/update', {
+                        id: id,
+                        process: process+1
                     }).then(resp => {
                         if (resp && resp.status === 200) {
                             this.$message({
                                 type: 'success',
-                                message: '已更新!'
+                                message: '已完成请求!'
                             })
                         }
                         this.loadFix()
@@ -103,7 +87,7 @@
                     cancelButtonText: '非',
                     type: 'info'
                 }).then(() => {
-                    this.$axios.post('losAndFix/deleteFix', {
+                    this.$axios.post('/studentFix/delete', {
                         id
                     }).then(resp => {
                         if (resp && resp.status === 200) {
@@ -121,11 +105,25 @@
 </script>
 
 <style scoped>
-  .resolved {
-    background-color: #eaeaea;
-  }
 
-  .normal {
-    background-color: white;
+  .myFix{
+    text-align: left;
+    width: 600px;
+    min-height: 300px;
+    padding-left: 20px;
+  }
+  .myFixImg {
+    width: 250px;
+    height: 250px;
+    margin-left: 400px;
+    margin-top: 20px;
+    position: absolute;
+  }
+  .myTag{
+    height: 40px;
+    width: 190px;
+    font-size: 20px;
+    padding-top: 5px;
+    margin-bottom: 10px;
   }
 </style>
