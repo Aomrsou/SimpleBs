@@ -21,30 +21,18 @@
       :visible.sync="drawer"
       :with-header="true"
       style="">
-      <div v-if="myInfo.name !== 'admin'">
-        <span><i class="el-icon-caret-right">姓名 :  </i>{{myInfo.name}}</span><br>
-        <span><i class="el-icon-caret-right">学号 :  </i>{{myInfo.num}}</span><br>
-        <span><i class="el-icon-caret-right">性别 :  </i>{{myInfo.sex}}</span><br>
-        <span><i class="el-icon-caret-right">所在宿舍楼 :  </i>{{myInfo.buildName}}</span><br>
-        <span><i class="el-icon-caret-right">所在宿舍 :  </i>{{myInfo.dor}}</span><br>
-        <span><i class="el-icon-caret-right">是否在读 :  </i>{{myInfo.flag == 1 ? '是' : '否'}}</span><br>
-      </div>
-      <div v-if="myInfo.name === 'admin'">
-        <hr>
-        管理员权限如下:
-        <hr>
-        <span><i class="el-icon-caret-right"></i>修改宿舍楼信息</span><br>
-        <span><i class="el-icon-caret-right"></i>修改学生信息</span><br>
-        <span><i class="el-icon-caret-right"></i>修改班级信息</span><br>
-        <span><i class="el-icon-caret-right"></i>修改宿舍的卫生/报修/失物招领信息</span><br>
-      </div>
+      <Message></Message>
+<!--      <div v-if="myInfo.name !== 'admin'"></div>-->
+<!--      <div v-if="myInfo.name === 'admin'"></div>-->
     </el-drawer>
   </el-menu>
 </template>
 
 <script>
+    import Message from "./Message"
     export default {
         name: 'NavMenu',
+        components:{Message},
         data(key) {
             return {
                 navList: [],
@@ -67,7 +55,7 @@
                     )
             } else {
                 this.navList.push(
-                    {name: '/admin/studentFix', navItem: '公告管理'},
+                    {name: '/admin/notice', navItem: '公告管理'},
                     {name: '/admin/fix', navItem: '后台管理'},
                     {name: '/viewadmin/build', navItem: '可视化后台'}
                 )
