@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span style="font-weight: bold;font-size: 20px">宿舍报修信息</span>
+      <span style="font-weight: bold;font-size: 20px">宿舍共享报修信息</span>
       <!--<el-button style="float: right; padding: 3px 0" type="text">修改</el-button>-->
     </div>
     <div class="block">

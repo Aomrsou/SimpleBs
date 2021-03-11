@@ -21,10 +21,40 @@
       :visible.sync="drawer"
       :with-header="true"
       style="">
-      <Message></Message>
+      <div>
+      <Message ref="message"></Message>
+        <div v-if="myInfo.name === 'admin'">
+          <el-button type="success" style="margin-top: 20px" @click="innerDrawer=true">发布公告</el-button>
+        </div>
+        <el-drawer
+          :append-to-body="true"
+          :visible.sync="innerDrawer"
+          size="400px">
+          <el-form :model="form">
+            <el-form-item label="公告标题" :label-width="formLabelWidth">
+              <el-input v-model="form.title" autocomplete="off" style="width: 60%"></el-input>
+            </el-form-item>
+            <el-form-item label="公告内容" :label-width="formLabelWidth">
+              <el-input
+                v-model="form.content"
+                autocomplete="off"
+                type="textarea"
+                :autosize="{ minRows: 4, maxRows: 4}"></el-input>
+            </el-form-item>
+            <el-form-item label="发布时间" :label-width="formLabelWidth">
+              <el-input v-model="form.noticetime" autocomplete="off" disabled></el-input>
+            </el-form-item>
+            <el-form-item label-width="formLabelWidth">
+              <el-button type="primary" @click="submitNotice()" style="margin-left: 33%">发布</el-button>
+              <el-button @click="clearNotice()">取消</el-button>
+            </el-form-item>
+          </el-form>
+        </el-drawer>
+      </div>
 <!--      <div v-if="myInfo.name !== 'admin'"></div>-->
 <!--      <div v-if="myInfo.name === 'admin'"></div>-->
     </el-drawer>
+
   </el-menu>
 </template>
 
@@ -39,10 +69,21 @@
                 username: '',
                 active: 'index',
                 drawer: false,
-                myInfo: []
+                myInfo: [],
+                formLabelWidth: '80px',
+                drawer: false,
+                innerDrawer: false,
+                form:{
+                    title:'',
+                    content:'',
+                    noticetime:''
+                }
             }
         },
         mounted: function () {
+            const date = new Date();
+            this.form.noticetime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+
             this.active = this.$route.name
             var usr = window.localStorage.getItem('user')
             const str = JSON.parse(usr)
@@ -55,14 +96,13 @@
                     )
             } else {
                 this.navList.push(
-                    {name: '/admin/notice', navItem: '公告管理'},
+                    // {name: '/admin/notice', navItem: '公告管理'},
                     {name: '/admin/fix', navItem: '后台管理'},
                     {name: '/viewadmin/build', navItem: '可视化后台'}
                 )
             }
             var info = window.localStorage.getItem('myInfo')
             this.myInfo = JSON.parse(info)
-            console.log(this.myInfo)
         },
         methods: {
             loginOut() {
@@ -75,7 +115,27 @@
                     this.$router.replace('/login')
                     location.reload()
                 })
+            },
+            submitNotice(){
+                this.$axios.post('/notice/insert', {
+                    title: this.form.title,
+                    content: this.form.content,
+                    noticetime: this.form.noticetime
+                }).then(resp => {
+                      this.$message({
+                          type: 'success',
+                          message: '已发布公告!'
+                      })
+                      this.$refs.message.loadNotice()
+                      this.innerDrawer = false
+                })
+            },
+            clearNotice(){
+                this.form.title = '';
+                this.form.content = '';
+                this.innerDrawer = false
             }
+
         }
     }
 </script>
