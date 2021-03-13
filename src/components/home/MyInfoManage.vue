@@ -11,7 +11,7 @@
         <el-button type="success" @click="open()" style="margin-right: 10px">修改密码</el-button>
       </el-form-item>
       <el-form-item label="手机：">
-        <span>{{ruleForm.phone}}</span>
+        <span><el-button circle type="success" icon="el-icon-edit" @click="openPhone()" style="margin-left: 10px"></el-button></span>
       </el-form-item>
       <el-form-item label="性别：">
         <span>{{ruleForm.sex}}</span>
@@ -97,6 +97,32 @@
                                 type: 'success',
                                 message: '密码修改成功！'
                             });
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '取消输入'
+                    });
+                });
+            },
+            openPhone() {
+                this.$prompt('修改手机号码为：', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }).then(({ value }) => {
+                    this.$axios
+                        .post('/stu/updatePhone', {
+                            id: this.ruleForm.id,
+                            phone: value
+                        }).then(resp => {
+                        if (resp.data.code == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '手机号修改成功！'
+                            });
+                            location.reload();
                         }
                     })
 

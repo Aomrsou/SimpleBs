@@ -139,6 +139,7 @@
                     }).then(resp => {
                     if (resp && resp.status === 200) {
                         _this.students = resp.data.data
+                        location.reload()
                     }
                 })
             },

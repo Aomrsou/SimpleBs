@@ -27,16 +27,16 @@
         </el-form-item>
         <el-form-item label="宿舍" :label-width="formLabelWidth">
           <el-select v-model="studentForm.sushe" filterable placeholder="请先选择宿舍楼" :disabled="flagToDisable">
-            <el-option v-for="(item,index) in dorSelectInfoByBid" :key="index" :label="item.dornum"
+            <el-option v-for="(item,index) in dorSelectInfoByBid" :key="item.did" :label="item.dornum"
                        :value="item.did"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item style="height: 0">
           <el-input type="hidden" v-model="studentForm.id" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item style="height: 0">
-          <el-input type="hidden" v-model="studentForm.susheid" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item style="height: 0">-->
+<!--          <el-input type="hidden" v-model="studentForm.susheid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="clear">取 消</el-button>
@@ -98,14 +98,16 @@
                 var dor = this.studentForm.sushe
                 var id = this.studentForm.id
                 var did = this.studentForm.susheid
-                var buildName = (dor === did) ? 'noAdjust' : 'isAdjust'
+                if(dor < 100){
+                    did = dor
+                }
                 this.$axios.post('/stu/addOrUpdate', {
-                    num, name, sex, cls, dor, id, did, buildName
+                    num, name, sex, cls, dor, id, did
                 }).then(resp => {
                     if (resp && resp.status === 200) {
                         this.$message({
                             type: 'success',
-                            message: '添加成功'
+                            message: '操作成功'
                         })
                     }
                 })

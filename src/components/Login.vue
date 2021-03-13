@@ -7,7 +7,8 @@
 
       <h3 class="login_title">学生登录查看寝室信息</h3>
       <el-form label-position="left"
-               label-width="0px">
+               label-width="0px"
+               @keyup.enter.native="login">
         <el-form-item>
           <el-input type="text" v-model="loginForm.username"
                     auto-complete="off" placeholder="账号"></el-input>
@@ -16,7 +17,7 @@
           <el-input type="password" v-model="loginForm.password"
                     auto-complete="off" placeholder="密码"></el-input>
         </el-form-item>
-        <el-form :inline="true" class="demo-form-inline">
+        <el-form :inline="true" @keyup.enter.native="login" class="demo-form-inline">
           <el-form-item>
             <el-button type="primary" style="width: 230px;background: #505458;border: none" v-on:click="check">登录
             </el-button>
@@ -27,7 +28,8 @@
     <el-tab-pane label="管理员登录" name="second">
       <h3 class="login_title">寝室报修后台管理</h3>
       <el-form label-position="left"
-               label-width="0px">
+               label-width="0px"
+               @keyup.enter.native="login">
         <el-form-item>
           <el-input type="text" v-model="loginForm.username"
                     auto-complete="off" placeholder="账号"></el-input>
@@ -36,7 +38,7 @@
           <el-input type="password" v-model="loginForm.password"
                     auto-complete="off" placeholder="密码"></el-input>
         </el-form-item>
-        <el-form :inline="true" class="demo-form-inline">
+        <el-form :inline="true" @keyup.enter.native="login" class="demo-form-inline">
           <el-form-item>
             <el-button type="primary" style="width: 230px;background: #505458;border: none" v-on:click="check">登录
             </el-button>
@@ -98,6 +100,8 @@
                 }, 1000)
             },
             login() {
+                console.log(this.loginForm.username)
+                console.log(this.loginForm.password)
                 let path = this.path
 
                 var _this = this

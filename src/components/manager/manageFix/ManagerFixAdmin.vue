@@ -8,6 +8,9 @@
           <el-option label="已完成" value="4" key="4"></el-option>
       </el-select>
       <el-button style="float: left; margin: 10px" @click="loadFix()">查询</el-button>
+      <download-excel :data="json_data" :fields="json_fields" name="报修信息.xls">
+        <el-button style="float: left; margin: 10px" type="success">导出报修信息为excel表</el-button>
+      </download-excel>
     </el-header>
     <el-main style="height: 600px">
       <hr style="margin-top: -20px; width: 620px; float:left">
@@ -44,7 +47,24 @@
                 fixes: [],
                 insertTitle: '',
                 insertContent: '',
-                searchFix: ''
+                searchFix: '',
+                json_data: [],
+                json_meta: [
+                    [
+                        {
+                            'key': 'charset',
+                            'value': 'utf-8'
+                        }
+                    ]
+                ],
+                json_fields: {
+                    '编号': 'id',
+                    '报修物品': 'stuff',
+                    '报修描述': 'description',
+                    '报修人': 'stuname',
+                    '报修地址': 'buildName',
+                    '报修进度': 'process'
+                },
             }
         },
         mounted: function () {
@@ -58,6 +78,7 @@
                 }).then(resp => {
                     if (resp && resp.status === 200) {
                         _this.fixes = resp.data.data
+                        _this.json_data = resp.data.data
                     }
                 })
             },

@@ -40,6 +40,7 @@
                 this.url = response.data[0]
                 this.$emit('onUpload')
                 this.$message.warning('上传成功')
+                this.clear()
             },
             clear () {
                 this.$refs.upload.clearFiles()

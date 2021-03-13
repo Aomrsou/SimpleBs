@@ -46,7 +46,8 @@
         methods :{
             getMyFix(){
                 this.$axios.post('/studentFix/list',{
-                    dorid: this.dorid
+                    dorid: this.dorid,
+                    display: 1
                 }).then(resp => {
                     if(resp.data.code == 200){
                         this.show = false

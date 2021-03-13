@@ -42,8 +42,8 @@
         <div style="font-size: 16px;margin-left: 30px">报修描述: {{item.description}}</div>
         <br>
 
-        <el-button type="success" icon="el-icon-share" style="margin-left: 30px" v-if="item.display == 0" @click="displayFix(item.id)">分享报修信息</el-button>
-        <el-button type="success" icon="el-icon-check" style="margin-left: 30px" v-if="item.display == 1" :disabled="true">已分享</el-button>
+        <el-button type="success" icon="el-icon-share" style="margin-left: 30px" v-if="item.display == 0" @click="displayFix(item.id, 1)">分享报修信息</el-button>
+        <el-button type="danger" icon="el-icon-check" style="margin-left: 30px" v-if="item.display == 1" @click="displayFix(item.id, 0)">取消分享</el-button>
         <div style="width: 70%; margin-top: 20px" >
           <el-steps :active="item.process" align-center process-status="process">
             <el-step title="已完成"></el-step>
@@ -86,7 +86,7 @@
                 }],
                 stuff: '',
                 desc: '',
-                cover: 'http://localhost:8888/bs/static/0uevzj.jpg',
+                cover: '',
                 active: 1,
                 dorid: '',
                 stuid: '',
@@ -100,6 +100,13 @@
                 this.flag = true
             },
             onSubmit() {
+                if(this.stuff == ''){
+                    this.$message({
+                        type: 'info',
+                        message: '请填写报修信息!'
+                    })
+                    return;
+                }
                 this.$axios.post('/studentFix/insert',{
                     stuff: this.stuff,
                     description: this.desc,
@@ -110,10 +117,18 @@
                     if(resp.data.code == 200){
                         this.active = 2
                         this.getMyFix()
+                        this.$message({
+                            type: 'success',
+                            message: '反馈成功!'
+                        })
                     }
                 })
             },
             getMyFix(){
+                this.stuff = ''
+                this.desc = ''
+                this.cover = ''
+                this.flag = false
                 this.$axios.post('/studentFix/list',{
                     stuid: this.stuid
                 }).then(resp => {
@@ -122,16 +137,21 @@
                     }
                 })
             },
-            displayFix(id){
+            displayFix(id, display){
+                var message = '取消'
+                if(display == 1){
+                    message = '分享'
+                }
 
-                this.$confirm('是否分享该报修给舍友？', '提示', {
-                    confirmButtonText: '分享',
+
+                this.$confirm('是否' + message + '该报修给舍友？', '提示', {
+                    confirmButtonText: '确定',
                     cancelButtonText: '再等等',
                     type: 'info'
                 }).then(() => {
                     this.$axios.post('/studentFix/update',{
                         id: id,
-                        display: 1
+                        display
                     }).then(resp => {
                         if (resp.data.code == 200) {
                             this.$message({
